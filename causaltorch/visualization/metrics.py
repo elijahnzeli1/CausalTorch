@@ -7,6 +7,7 @@ import numpy as np
 import torch
 from typing import Dict, List, Tuple, Union, Optional
 import seaborn as sns # type: ignore
+from sklearn.metrics.pairwise import cosine_distances # type: ignore
 
 
 def plot_cfs_comparison(
@@ -198,9 +199,8 @@ def plot_novelty_distribution(
     with torch.no_grad():
         gen_features = feature_extractor(generated_samples).cpu().numpy()
         train_features = feature_extractor(training_samples).cpu().numpy()
-    
     # Calculate pairwise distances
-    from sklearn.metrics.pairwise import cosine_distances
+    distances = []
     distances = []
     for gen in gen_features:
         # Get minimum distance to any training sample (closest neighbor)

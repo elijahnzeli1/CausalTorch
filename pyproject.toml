@@ -13,3 +13,5 @@ multi_line_output = 3
 
 [tool.pytest]
 testpaths = ["tests"]
+
+license = { text = "MIT License" }

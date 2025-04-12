@@ -46,7 +46,6 @@ venv.bak/
 logs/
 runs/
 results/
-models/
 data/raw/
 data/processed/
 wandb/

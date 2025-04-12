@@ -1,25 +1,25 @@
 """
 CausalTorch: A PyTorch extension for causal deep learning.
-
-This package provides tools and models for incorporating causal relationships
-into deep learning models using PyTorch.
 """
 
 __version__ = '0.1.0'
 
 # Import core components
 from .rules import CausalRule, CausalRuleSet, load_default_rules
-from .layers import CausalSymbolicLayer
+from .layers import CausalSymbolicLayer, CausalAttentionLayer, CausalLinear, TemporalCausalConv
 
-# Import models
-from .models import CNSGImageGenerator, CNSG_GPT2 as CNSGTextGenerator, CNSG_VideoGenerator
+# Import models - using the alias defined in models/__init__.py
+from .models import CNSGImageGenerator, CNSGTextGenerator, CNSG_VideoGenerator
 
 __all__ = [
     'CausalRule',
     'CausalRuleSet',
     'load_default_rules',
     'CausalSymbolicLayer',
+    'CausalAttentionLayer',
+    'CausalLinear',
+    'TemporalCausalConv',
     'CNSGImageGenerator',
-    'CNSGTextGenerator',  # This will work because of the alias above
+    'CNSGTextGenerator',
     'CNSG_VideoGenerator'
 ]
