@@ -2,6 +2,41 @@
 requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta"
 
+[project]
+name = "causaltorch"
+version = "0.1.0"
+description = "A PyTorch library for building generative models with causal constraints"
+readme = "README.md"
+requires-python = ">=3.7"
+license = "MIT"
+authors = [
+    {name = "Your Name", email = "your.email@example.com"}
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "torch>=1.8.0",
+    "numpy>=1.19.0",
+    "matplotlib>=3.3.0", 
+    "networkx>=2.5"
+]
+
+[project.optional-dependencies]
+text = ["transformers>=4.5.0"]
+dev = ["pytest>=6.0.0", "black>=21.5b2", "isort>=5.8.0"]
+
+[project.urls]
+"Homepage" = "https://github.com/elijahnzeli1/causaltorch"
+"Bug Tracker" = "https://github.com/elijahnzeli1/causaltorch/issues"
+
 [tool.black]
 line-length = 88
 include = '\.pyi?$'
@@ -13,5 +48,3 @@ multi_line_output = 3
 
 [tool.pytest]
 testpaths = ["tests"]
-
-license = { text = "MIT License" }

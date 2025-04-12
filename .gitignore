@@ -58,4 +58,9 @@ lightning_logs/
 .Spotlight-V100
 .Trashes
 ehthumbs.db
-Thumbs.db
+Thumbs.db.pypirc
+
+publish_package.bat
+
+# Or if you want to ignore all batch files
+*.bat
