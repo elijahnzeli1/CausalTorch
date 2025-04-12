@@ -1,0 +1,74 @@
+[
+    {
+      "name": "if_then_completion",
+      "description": "If statement must be completed with proper syntax",
+      "pattern": "if\\s+\\([^)]*\\)\\s*\\{",
+      "consequences": [
+        {
+          "text": "}",
+          "intensity": 5.0,
+          "required": true
+        }
+      ],
+      "type": "syntax"
+    },
+    {
+      "name": "file_open_close",
+      "description": "File opened must be closed",
+      "pattern": "open\\([^)]*\\)",
+      "consequences": [
+        {
+          "text": ".close()",
+          "intensity": 3.0,
+          "required": true
+        }
+      ],
+      "type": "resource"
+    },
+    {
+      "name": "null_check",
+      "description": "Null should be checked before use",
+      "pattern": "(\\w+)\\.(\\w+)",
+      "consequences": [
+        {
+          "text": "if $1 is not None",
+          "intensity": 2.0,
+          "required": false
+        }
+      ],
+      "type": "safety"
+    },
+    {
+      "name": "exception_handling",
+      "description": "Try should have exception handling",
+      "pattern": "try\\s*\\{",
+      "consequences": [
+        {
+          "text": "catch",
+          "intensity": 4.0,
+          "required": true
+        },
+        {
+          "text": "except",
+          "intensity": 4.0,
+          "required": true
+        }
+      ],
+      "type": "safety"
+    },
+    {
+      "name": "secure_coding",
+      "description": "Prevent SQL injection",
+      "pattern": "SELECT.*\\+.*\\$",
+      "consequences": [
+        {
+          "text": "parameterized query",
+          "intensity": 5.0,
+          "required": true
+        }
+      ],
+      "type": "forbidden",
+      "forbidden_text": "SELECT * FROM users WHERE name = '$name'",
+      "intensity": 10.0
+    }
+]

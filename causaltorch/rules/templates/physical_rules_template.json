@@ -1,0 +1,84 @@
+[
+  {
+    "name": "rain_wet_ground",
+    "description": "If it rains, the ground gets wet",
+    "pattern": "rain|precipitation|downpour|shower",
+    "consequences": [
+      {
+        "text": "wet ground",
+        "intensity": 5.0,
+        "required": true
+      },
+      {
+        "text": "puddles",
+        "intensity": 3.0,
+        "required": false
+      }
+    ],
+    "type": "physical"
+  },
+  {
+    "name": "fire_smoke",
+    "description": "Fire produces smoke",
+    "pattern": "fire|flame|burning",
+    "consequences": [
+      {
+        "text": "smoke",
+        "intensity": 4.5,
+        "required": true
+      },
+      {
+        "text": "ash",
+        "intensity": 2.5,
+        "required": false
+      }
+    ],
+    "type": "physical"
+  },
+  {
+    "name": "gravity_falling",
+    "description": "Objects fall due to gravity",
+    "pattern": "dropped|released|fell|falling",
+    "consequences": [
+      {
+        "text": "downward",
+        "intensity": 4.0,
+        "required": true
+      },
+      {
+        "text": "ground",
+        "intensity": 3.0,
+        "required": true
+      },
+      {
+        "text": "impact",
+        "intensity": 2.0,
+        "required": false
+      }
+    ],
+    "type": "physical"
+  },
+  {
+    "name": "collision_sound",
+    "description": "Collisions produce sound",
+    "pattern": "hit|crash|collide|impact|slam",
+    "consequences": [
+      {
+        "text": "sound",
+        "intensity": 4.0,
+        "required": true
+      },
+      {
+        "text": "noise",
+        "intensity": 4.0,
+        "required": true
+      },
+      {
+        "text": "bang",
+        "intensity": 3.0,
+        "required": false
+      }
+    ],
+    "type": "physical"
+  }
+]

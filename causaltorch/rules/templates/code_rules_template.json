@@ -1,0 +1,61 @@
+[
+  {
+    "name": "if_then_completion",
+    "description": "If statement must be completed with proper syntax",
+    "pattern": "if\\s+\\([^)]*\\)\\s*\\{",
+    "consequences": [
+      {
+        "text": "}",
+        "intensity": 5.0,
+        "required": true
+      }
+    ],
+    "type": "syntax"
+  },
+  {
+    "name": "try_catch_completion",
+    "description": "Try blocks must have catch/except blocks",
+    "pattern": "try\\s*\\{",
+    "consequences": [
+      {
+        "text": "catch",
+        "intensity": 4.0,
+        "required": true
+      },
+      {
+        "text": "except",
+        "intensity": 4.0,
+        "required": true
+      }
+    ],
+    "type": "syntax"
+  },
+  {
+    "name": "null_check",
+    "description": "Validate objects before accessing properties",
+    "pattern": "(\\w+)\\.(\\w+)",
+    "consequences": [
+      {
+        "text": "if $1 is not None",
+        "intensity": 2.0,
+        "required": false
+      }
+    ],
+    "type": "safety"
+  },
+  {
+    "name": "secure_coding",
+    "description": "Prevent SQL injection",
+    "pattern": "SELECT.*\\+.*\\$",
+    "consequences": [
+      {
+        "text": "parameterized query",
+        "intensity": 5.0,
+        "required": true
+      }
+    ],
+    "type": "forbidden",
+    "forbidden_text": "SELECT * FROM users WHERE name = '$name'",
+    "intensity": 10.0
+  }
+]
