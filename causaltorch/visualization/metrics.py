@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch
 from typing import Dict, List, Tuple, Union, Optional
-import seaborn as sns
+import seaborn as sns # type: ignore
 
 
 def plot_cfs_comparison(

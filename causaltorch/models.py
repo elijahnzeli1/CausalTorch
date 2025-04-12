@@ -11,7 +11,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 try:
-    import pytorch_lightning as pl
+    import pytorch_lightning as pl # type: ignore
     from transformers import GPT2LMHeadModel
 except ImportError:
     # Optional dependencies

@@ -7,7 +7,7 @@ import networkx as nx
 import numpy as np
 import torch
 from typing import Dict, List, Optional, Tuple, Union
-import seaborn as sns
+import seaborn as sns # type: ignore
 
 
 def plot_causal_graph(
