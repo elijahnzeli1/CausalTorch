@@ -1,0 +1,4 @@
+sphinx>=4.0
+# Add other dependencies like:
+# sphinx_rtd_theme
+# numpy # if your docstrings use numpy types
