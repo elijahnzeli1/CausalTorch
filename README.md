@@ -1,7 +1,7 @@
 # CausalTorch
 
 [![PyPI Version](https://img.shields.io/pypi/v/causaltorch.svg)](https://pypi.org/project/causaltorch/)
-[![Python Versions](https://img.shields.io/pypi/pyversions/causaltorch.svg)](https://pypi.org/project/causaltorch/)
+[![Python Versions](https://img.shields.io/pypi/pyversions/causaltorch.svg)](https://pypi.org/project/causaltorch/v2.0.0)
 [![License](https://img.shields.io/github/license/elijahnzeli1/CausalTorch.svg)](https://github.com/elijahnzeli1/CausalTorch/blob/main/LICENSE)
 
 CausalTorch is a PyTorch library for building generative models with explicit causal constraints. It integrates graph-based causal reasoning with deep learning to create AI systems that respect logical causal relationships.
