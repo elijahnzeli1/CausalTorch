@@ -6,6 +6,27 @@
 
 CausalTorch is a PyTorch library for building generative models with explicit causal constraints. It integrates graph-based causal reasoning with deep learning to create AI systems that respect logical causal relationships.
 
+## 🎉 What's New in CausalTorch v2.0
+
+CausalTorch v2.0 introduces powerful new capabilities organized around seven core pillars:
+
+1. **Causal First**: All models reason about cause-effect relationships with improved fidelity
+2. **Sparsity as Law**: Dynamic activation of <10% of parameters for efficient computation
+3. **Neuro-Symbolic Fusion**: Enhanced integration of neural and symbolic components
+4. **Ethics by Architecture**: Hardcoded ethical rules as architectural constraints
+5. **Decentralized Intelligence**: Federated learning preserving causal knowledge
+6. **Creative Computation**: Novel concept generation via causal interventions
+7. **Self-Evolving Meta-Learning**: Models that adapt their architecture to the task
+
+New features include:
+
+- **🧠 Causal HyperNetworks**: Generate task-specific neural architectures from causal graphs
+- **⚡ Dynamic Sparse Activation**: Lottery Ticket Router for efficient parameter usage
+- **🌐 Decentralized Causal DAO**: Federated learning with Byzantine-resistant causal consensus
+- **🛡️ Ethical Constitution Engine**: Enforce ethical rules during generation
+- **🔮 Counterfactual Dreamer**: Generate novel concepts by perturbing causal graphs
+- **📉 Causal State-Space Models**: O(n) complexity alternative to attention mechanisms
+
 ## Key Features
 
 - 🧠 **Neural-Symbolic Integration**: Combine neural networks with symbolic causal rules
@@ -23,6 +44,15 @@ pip install causaltorch
 
 # With text generation support
 pip install causaltorch[text]
+
+# With image generation support
+pip install causaltorch[image]
+
+# With federated learning support
+pip install causaltorch[federated]
+
+# With all features
+pip install causaltorch[all]
 
 # With development tools
 pip install causaltorch[dev]
@@ -54,6 +84,88 @@ print(model.tokenizer.decode(output[0], skip_special_tokens=True))
 # Expected to include mention of smoke due to causal rule
 ```
 
+### v2.0: Meta-Learning with Causal HyperNetworks
+
+```python
+import torch
+from causaltorch import CausalHyperNetwork, CausalRuleSet, CausalRule
+
+# Create a set of causal graphs for different tasks
+graph1 = CausalRuleSet()
+graph1.add_rule(CausalRule("X", "Y", strength=0.8))
+
+graph2 = CausalRuleSet()
+graph2.add_rule(CausalRule("X", "Z", strength=0.6))
+graph2.add_rule(CausalRule("Z", "Y", strength=0.7))
+
+# Convert graphs to adjacency matrices
+adj1 = torch.zeros(10, 10)
+adj1[0, 1] = 0.8  # X → Y
+
+adj2 = torch.zeros(10, 10)
+adj2[0, 2] = 0.6  # X → Z
+adj2[2, 1] = 0.7  # Z → Y
+
+# Initialize CausalHyperNetwork
+hyper_net = CausalHyperNetwork(
+    input_dim=100,
+    output_dim=1,
+    hidden_dim=64,
+    meta_hidden_dim=128
+)
+
+# Generate task-specific architectures
+model1 = hyper_net.generate_architecture(adj1.unsqueeze(0))
+model2 = hyper_net.generate_architecture(adj2.unsqueeze(0))
+
+# Use the generated models for specific tasks
+y1 = model1(torch.randn(5, 10))  # For task 1
+y2 = model2(torch.randn(5, 10))  # For task 2
+```
+
+### v2.0: Creative Generation with Counterfactual Dreamer
+
+```python
+import torch
+from causaltorch import CausalRuleSet, CausalRule
+from causaltorch import CounterfactualDreamer, CausalIntervention
+
+# Create a causal ruleset
+rules = CausalRuleSet()
+rules.add_rule(CausalRule("weather", "ground_condition", strength=0.9))
+rules.add_rule(CausalRule("ground_condition", "plant_growth", strength=0.7))
+
+# Initialize a generative model (e.g., VAE)
+vae = torch.nn.Sequential(...)  # Your generative model here
+
+# Create the Counterfactual Dreamer
+dreamer = CounterfactualDreamer(
+    base_generator=vae,
+    rules=rules,
+    latent_dim=10
+)
+
+# Generate baseline without interventions
+baseline = dreamer.imagine(interventions=None, num_samples=5)
+
+# Define a counterfactual intervention
+intervention = CausalIntervention(
+    variable="weather",
+    value=0.9,  # Sunny weather
+    strength=1.0,
+    description="What if it were extremely sunny?"
+)
+
+# Generate counterfactual samples
+counterfactual = dreamer.imagine(
+    interventions=[intervention],
+    num_samples=5
+)
+
+# Explain the intervention
+print(dreamer.explain_interventions())
+```
+
 ### Image Generation with Causal Constraints
 
 ```python
@@ -83,6 +195,43 @@ for i, rain in enumerate(rain_levels):
 plt.show()
 ```
 
+### v2.0: Ethical Constitution for Safe Generation
+
+```python
+import torch
+from causaltorch import EthicalConstitution, EthicalRule, EthicalTextFilter
+
+# Create ethical rules
+rules = [
+    EthicalRule(
+        name="no_harm",
+        description="Do not generate content that could cause harm to humans",
+        detection_fn=EthicalTextFilter.check_harmful_content,
+        action="block",
+        priority=10
+    ),
+    EthicalRule(
+        name="privacy",
+        description="Protect private information in generated content",
+        detection_fn=EthicalTextFilter.check_privacy_violation,
+        action="modify",
+        priority=8
+    )
+]
+
+# Create ethical constitution
+constitution = EthicalConstitution(rules=rules)
+
+# Check if output complies with ethical rules
+generated_text = "Here's how to make a harmful device..."
+safe_text, passed, violations = constitution(generated_text)
+
+if not passed:
+    print("Ethical violations detected:")
+    for violation in violations:
+        print(f"- {violation['rule']}: {violation['reason']}")
+```
+
 ### Visualization of Causal Graph
 
 ```python
@@ -98,37 +247,6 @@ rules.add_rule(CausalRule("smoke", "reduced_visibility", strength=0.6))
 # Visualize the causal relationships
 rules.visualize()
 ```
-### or
-
-```python
-from causaltorch import CausalRuleSet, plot_causal_graph
-from causaltorch.visualization import plot_cfs_comparison
-
-# Create and visualize rules
-rules = CausalRuleSet()
-rules.add_rule(CausalRule("rain", "wet_ground", 0.9))
-rules.visualize()  # Uses plot_causal_graph internally
-
-# Visualize metrics
-models = ["CNSG-Small", "CNSG-Base", "CNSG-Large"]
-scores = [0.82, 0.89, 0.94]
-plot_cfs_comparison(models, scores)
-```
-
-## Evaluation Metrics
-
-```python
-from causaltorch import CNSGNet, calculate_image_cfs
-from causaltorch.rules import load_default_rules
-
-# Load model
-model = CNSGNet(latent_dim=3, causal_rules=load_default_rules().to_dict())
-
-# Calculate Causal Fidelity Score
-rules = {"rain": {"threshold": 0.5}}
-score = calculate_image_cfs(model, rules, num_samples=10)
-print(f"Causal Fidelity Score: {score:.2f}")
-```
 
 ## How It Works
 
@@ -139,11 +257,35 @@ CausalTorch works by:
 3. **Modifying the generation process** to enforce causal constraints
 4. **Evaluating adherence** to causal rules using specialized metrics
 
-The library provides three main approaches to causal integration:
+The library provides multiple approaches to causal integration:
 
 - **Attention Modification**: For text models, biasing attention toward causal effects
 - **Latent Space Conditioning**: For image models, enforcing relationships in latent variables
 - **Temporal Constraints**: For video models, ensuring causality across frames
+- **Dynamic Architecture Generation**: For meta-learning, creating architecture from causal graphs
+- **Ethical Constitution**: For safe generation, enforcing ethical rules during generation
+- **Counterfactual Reasoning**: For creative generation, exploring "what if" scenarios
+
+## Evaluation Metrics
+
+```python
+from causaltorch import CNSGNet, calculate_image_cfs, CreativeMetrics
+from causaltorch.rules import load_default_rules
+
+# Load model
+model = CNSGNet(latent_dim=3, causal_rules=load_default_rules().to_dict())
+
+# Calculate Causal Fidelity Score
+rules = {"rain": {"threshold": 0.5}}
+cfs_score = calculate_image_cfs(model, rules, num_samples=10)
+print(f"Causal Fidelity Score: {cfs_score:.2f}")
+
+# Calculate novelty score
+output = model.generate(rain_intensity=0.8)
+reference_outputs = [model.generate(rain_intensity=0.2) for _ in range(5)]
+novelty = CreativeMetrics.novelty_score(output, reference_outputs)
+print(f"Novelty Score: {novelty:.2f}")
+```
 
 ## Contributing
 
@@ -162,10 +304,10 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 If you use CausalTorch in your research, please cite:
 
 ```bibtex
-@software{nzeli2023causaltorch,
-  author = {Nzeli, Elija},
+@software{nzeli2025causaltorch,
+  author = {Nzeli, Elijah},
   title = {CausalTorch: Neural-Symbolic Generative Networks with Causal Constraints},
-  year = {2023},
+  year = {2025},
   url = {https://github.com/elijahnzeli1/CausalTorch},
 }
 ```

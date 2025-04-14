@@ -4,38 +4,59 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "causaltorch"
-version = "0.1.0"
+version = "2.0.0"
 description = "A PyTorch library for building generative models with causal constraints"
 readme = "README.md"
 requires-python = ">=3.7"
-license = "MIT"
 authors = [
-    {name = "Your Name", email = "your.email@example.com"}
+    {name = "Elija Nzeli", email = "elijahnzeli894@example.com"}
 ]
 classifiers = [
-    "Development Status :: 3 - Alpha",
-    "Intended Audience :: Science/Research",
-    "Intended Audience :: Developers",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
+    "Operating System :: OS Independent",
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
 dependencies = [
     "torch>=1.8.0",
     "numpy>=1.19.0",
-    "matplotlib>=3.3.0", 
-    "networkx>=2.5"
+    "matplotlib>=3.3.0",
+    "networkx>=2.5",
+    "tqdm>=4.61.0",
 ]
+license = "MIT"
 
 [project.optional-dependencies]
-text = ["transformers>=4.5.0"]
-dev = ["pytest>=6.0.0", "black>=21.5b2", "isort>=5.8.0"]
+text = ["transformers>=4.5.0", "tokenizers>=0.10.2"]
+image = ["torchvision>=0.9.0", "Pillow>=8.2.0"]
+video = ["av>=8.0.0", "opencv-python>=4.5.1"]
+federated = ["pytorch-lightning>=1.3.0"]
+dev = [
+    "pytest>=6.0.0",
+    "black>=21.5b2",
+    "isort>=5.8.0",
+    "flake8>=3.9.2",
+    "mypy>=0.812",
+]
+all = [
+    "transformers>=4.5.0",
+    "tokenizers>=0.10.2",
+    "torchvision>=0.9.0", 
+    "Pillow>=8.2.0",
+    "av>=8.0.0", 
+    "opencv-python>=4.5.1",
+    "pytorch-lightning>=1.3.0",
+]
 
 [project.urls]
-"Homepage" = "https://github.com/elijahnzeli1/causaltorch"
-"Bug Tracker" = "https://github.com/elijahnzeli1/causaltorch/issues"
+"Homepage" = "https://github.com/elijahnzeli1/CausalTorch"
+"Bug Tracker" = "https://github.com/elijahnzeli1/CausalTorch/issues"
+"Documentation" = "https://causaltorch.readthedocs.io/"
 
 [tool.black]
 line-length = 88
@@ -48,3 +69,7 @@ multi_line_output = 3
 
 [tool.pytest]
 testpaths = ["tests"]
+
+[tool.setuptools.packages.find]
+include = ["causaltorch*"]
+exclude = ["venv_test*", "text_code_generator*", "test*"]

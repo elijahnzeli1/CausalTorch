@@ -41,6 +41,7 @@ venv.bak/
 .vscode/
 *.swp
 *.swo
+.cursor
 
 # Project specific
 logs/
