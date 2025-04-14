@@ -6,11 +6,7 @@ version: 2
 
 # Build configuration
 build:
-  os:
-    - ubuntu-24.04   # Existing Linux version
-    - ubuntu-22.04   # Added another common Linux version
-    - windows-2022   # Existing Windows version
-    - macos-latest   # Added macOS (usually the latest stable version)
+  os: ubuntu-24.04
 
 # Set the OS, Python version, and other tools you might need
 python:
