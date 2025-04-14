@@ -12,3 +12,11 @@ __all__ = [
     "CausalSymbolicLayer",
     "TemporalCausalConv"
 ]
+
+"""
+CausalTorch Layers Package
+==========================
+
+This package contains neural network layers for implementing causal relationships
+in deep learning models.
+"""
