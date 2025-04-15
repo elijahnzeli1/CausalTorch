@@ -1,26 +1,44 @@
 """
-CausalTorch: Causal Neural-Symbolic Generative Networks
-======================================================
+CausalTorch Visualization Package
+================================
 
-A PyTorch library for building generative models with causal constraints.
+Visualization tools for causal graphs, model evaluation, and metrics.
 
-Key components:
-- CNSG models for text, image, and video generation with causal rules
-- Graph-based causal rule definition and visualization
-- Specialized neural layers for enforcing causal constraints 
-- Metrics for evaluating causal fidelity and consistency
+This package provides plotting and visualization utilities for:
+- Causal graphs and relationships
+- Attention weights with causal highlighting
+- Latent space traversals for causal variables
+- Evaluation metrics and comparisons
 """
 
-__version__ = "0.1.0"
+__version__ = "2.0.1"
 
-from ..models import CNSG_GPT2, CNSGNet, CNSG_VideoGenerator
-from ..rules import CausalRule, CausalRuleSet, load_default_rules
-from ..layers import CausalLinear, CausalAttentionLayer, CausalSymbolicLayer
-from ..metrics import calculate_cfs, temporal_consistency, novelty_index
+# Import plot functions
+from .plot import (
+    plot_causal_graph,
+    visualize_attention,
+    plot_latent_traversal,
+    plot_causal_intervention
+)
+
+# Import metrics visualization functions
+from .metrics import (
+    plot_cfs_comparison,
+    plot_causal_effects_heatmap,
+    plot_temporal_consistency,
+    plot_novelty_distribution
+)
 
 __all__ = [
-    "CNSG_GPT2", "CNSGNet", "CNSG_VideoGenerator",
-    "CausalRule", "CausalRuleSet", "load_default_rules", 
-    "CausalLinear", "CausalAttentionLayer", "CausalSymbolicLayer",
-    "calculate_cfs", "temporal_consistency", "novelty_index",
+    # Plot functions
+    "plot_causal_graph",
+    "visualize_attention",
+    "plot_latent_traversal",
+    "plot_causal_intervention",
+    
+    # Metrics visualization
+    "plot_cfs_comparison",
+    "plot_causal_effects_heatmap",
+    "plot_temporal_consistency",
+    "plot_novelty_distribution"
 ]

@@ -14,7 +14,7 @@ Key components:
 - Creative computation through counterfactual reasoning
 """
 
-__version__ = "2.0.0"
+__version__ = "2.0.1"
 
 # Export core models
 from .models import (
@@ -39,7 +39,14 @@ from .rules import CausalRule, CausalRuleSet, load_default_rules
 from .layers import CausalLinear, CausalAttentionLayer, CausalSymbolicLayer
 
 # Export ethics components
-from .ethics.constitution import EthicalConstitution, EthicalRule, load_default_ethical_rules, EthicalLoss
+# Make this consistent with the ethics package's __init__.py
+from .ethics import (
+    EthicalConstitution,
+    EthicalRule,
+    EthicalTextFilter,
+    EthicalLoss,
+    load_default_ethical_rules
+)
 
 # Export federated learning components
 from .federated.dao import CausalDAO, FederatedClient
@@ -75,6 +82,7 @@ __all__ = [
     # Ethics
     "EthicalConstitution", 
     "EthicalRule",
+    "EthicalTextFilter",
     "load_default_ethical_rules",
     "EthicalLoss",
     # Federated Learning

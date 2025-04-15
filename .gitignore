@@ -65,3 +65,5 @@ publish_package.bat
 
 # Or if you want to ignore all batch files
 *.bat
+
+multimodal_causal/
