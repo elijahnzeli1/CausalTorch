@@ -10,7 +10,7 @@ This script demonstrates the native CausalTransformer model's capabilities:
 """
 
 import time
-from transformers import AutoTokenizer
+from transformers import AutoTokenizer # type: ignore
 
 # Import CausalTorch components
 from causaltorch import (

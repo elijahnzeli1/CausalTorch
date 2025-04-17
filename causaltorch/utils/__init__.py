@@ -4,4 +4,15 @@
 # from .visualization import plot_causal_graph
 # from .data import load_causal_dataset
 
-__all__ = []
+# Import metrics
+from .metrics import (
+    calculate_causal_fidelity_score,
+    calculate_temporal_causal_fidelity,
+    calculate_rule_violation_rate
+)
+
+__all__ = [
+    'calculate_causal_fidelity_score',
+    'calculate_temporal_causal_fidelity',
+    'calculate_rule_violation_rate'
+]

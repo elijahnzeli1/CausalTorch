@@ -11,7 +11,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
 import matplotlib.pyplot as plt
-from torchvision.utils import make_grid
+from torchvision.utils import make_grid # type: ignore
 
 import causaltorch
 from causaltorch import CausalRuleSet, CausalRule
