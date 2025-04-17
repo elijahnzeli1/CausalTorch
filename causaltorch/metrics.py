@@ -32,11 +32,13 @@ def calculate_cfs(model: torch.nn.Module,
     total = len(test_cases)
     
     # Default effect checker for text
+    def default_effect_checker(output, expected_effect):
+        if isinstance(output, str) and isinstance(expected_effect, str):
+            return expected_effect.lower() in output.lower()
+    
+    # Use the provided effect_checker or the default one
     if effect_checker is None:
-        def effect_checker(output, expected_effect):
-            if isinstance(output, str) and isinstance(expected_effect, str):
-                return expected_effect.lower() in output.lower()
-            return False
+        effect_checker = default_effect_checker
     
     for input_data, expected_effect in test_cases:
         # Generate output

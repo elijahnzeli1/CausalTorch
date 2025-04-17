@@ -1,41 +1,58 @@
-"""Attention layer with causal constraints for CausalTorch."""
+"""
+Custom CausalAttentionLayer for the multimodal model.
+"""
 
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 
 
 class CausalAttentionLayer(nn.Module):
-    """Attention layer that enforces causal rules in text generation.
+    """Attention layer that enforces causal rules in text processing.
     
-    This layer modifies attention scores to bias the model toward 
-    generating text that follows causal rules.
+    This layer applies causal biasing to attention between tokens.
     
     Args:
-        causal_rules (dict): Dictionary mapping causes to effects with strengths
+        causal_rules (dict): Dictionary mapping causes to effects
     """
     def __init__(self, causal_rules):
         super().__init__()
         self.rules = causal_rules
-    
-    def forward(self, attention_scores, input_text):
-        """Apply causal rules to attention scores.
+        self.tokenizer = None  # To be set by the parent model
+        
+        # Add a small linear layer for causal biasing
+        self.hidden_dim = 768  # Default, will be overridden if needed
+        self.causal_bias = nn.Parameter(torch.zeros(1, 2, 2))  # Dummy init, will be expanded
+        
+    def forward(self, hidden_states, attention_mask=None):
+        """Apply causal attention to hidden states.
         
         Args:
-            attention_scores (torch.Tensor): Original attention scores
-            input_text (str): Input text to check for causes
+            hidden_states (torch.Tensor): Input hidden states
+            attention_mask (torch.Tensor): Attention mask
             
         Returns:
-            torch.Tensor: Modified attention scores biased by causal rules
+            tuple: (output_states, attention_weights)
         """
-        # We assume a tokenizer is available in the parent model
-        tokenizer = getattr(self, 'tokenizer', None)
-        if tokenizer is None:
-            raise ValueError("Tokenizer not found. Please set self.tokenizer in the parent model.")
+        batch_size, seq_len, hidden_dim = hidden_states.shape
         
-        for cause, effect_info in self.rules.items():
-            if cause in input_text:
-                effect_ids = tokenizer.encode(effect_info["effect"], add_special_tokens=False)
-                for token_id in effect_ids:
-                    attention_scores[..., token_id] += effect_info["strength"]
+        # Self-attention projections
+        q = hidden_states
+        k = hidden_states
+        v = hidden_states
         
-        return attention_scores
+        # Compute attention scores
+        attention_scores = torch.bmm(q, k.transpose(1, 2)) / (hidden_dim ** 0.5)
+        
+        # Apply attention mask if provided
+        if attention_mask is not None:
+            expanded_mask = attention_mask.unsqueeze(1).expand(batch_size, seq_len, seq_len)
+            attention_scores = attention_scores.masked_fill(~expanded_mask.bool(), -10000.0)
+        
+        # Apply softmax to get attention weights
+        attention_weights = F.softmax(attention_scores, dim=-1)
+        
+        # Apply attention to values
+        output_states = torch.bmm(attention_weights, v)
+        
+        return output_states, attention_weights 

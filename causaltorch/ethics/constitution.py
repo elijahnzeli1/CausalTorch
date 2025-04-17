@@ -122,7 +122,7 @@ class EthicalConstitution(nn.Module):
         rules (List[EthicalRule], optional): List of ethical rules
         log_violations (bool): Whether to log rule violations
     """
-    __version__ = "2.0.1"
+    __version__ = "2.0.2"
     
     def __init__(
         self,
