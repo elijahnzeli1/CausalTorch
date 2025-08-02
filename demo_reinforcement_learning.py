@@ -241,7 +241,7 @@ def demonstrate_rl_training_cycle():
         for var, effects in causal_analysis['causal_effects'].items():
             print(f"     {var}: Mean reward = {effects['mean_reward']:.2f}")
     
-    print(f"\\n📈 Training summary:")
+    print(f"\\n Training summary:")
     print(f"   Episodes completed: {num_episodes}")
     print(f"   Average reward: {sum(episode_rewards) / len(episode_rewards):.2f}")
     print(f"   Final memory size: {len(agent.episodic_memory)}")

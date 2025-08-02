@@ -67,7 +67,7 @@ Let end-users train or fine-tune causal AI models by importing `import causaltor
 
 ---
 
-## 📈 Inspiration from other PyTorch‑based stand‑alone libs
+##  Inspiration from other PyTorch‑based stand‑alone libs
 
 * **CausalFlows** is a minimal wrapper over `Zuko` but packages its own easy‑to‑use API (\[GitHub / causal‑flows repo]\([github.com][1])).
 * **Torchélie** and **Catalyst** expose only their own API while using PyTorch everywhere internally.

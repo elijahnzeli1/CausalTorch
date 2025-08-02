@@ -259,6 +259,108 @@ class CausalMLOps:
         
         print(f"💾 Logged artifact: {name} ({artifact_type})")
     
+    def log_model_info(self, model, model_name: str, training_params: Dict[str, Any] = None):
+        """
+        Log comprehensive model information including architecture, parameters, and weights.
+        
+        Args:
+            model: PyTorch model to log
+            model_name: Name identifier for the model
+            training_params: Additional training parameters to log
+        """
+        if not self.current_experiment:
+            raise RuntimeError("No active experiment. Call start_experiment() first.")
+        
+        import torch.nn as nn
+        
+        # Calculate model statistics
+        total_params = sum(p.numel() for p in model.parameters())
+        trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+        model_size_mb = sum(p.numel() * p.element_size() for p in model.parameters()) / (1024 * 1024)
+        
+        # Get layer information
+        layer_info = []
+        for name, module in model.named_modules():
+            if len(list(module.children())) == 0:  # Only leaf modules
+                layer_type = type(module).__name__
+                num_params = sum(p.numel() for p in module.parameters())
+                layer_info.append({
+                    'name': name,
+                    'type': layer_type,
+                    'parameters': num_params
+                })
+        
+        # Collect weight statistics
+        weight_stats = {}
+        for name, param in model.named_parameters():
+            if param.requires_grad:
+                # Safe calculations for edge cases
+                if param.numel() == 0:
+                    # For empty parameters, use default values
+                    weight_stats[name] = {
+                        'shape': list(param.shape),
+                        'mean': 0.0,
+                        'std': 0.0,
+                        'min': 0.0,
+                        'max': 0.0,
+                        'norm': 0.0,
+                        'sparsity': 0.0
+                    }
+                elif param.numel() == 1:
+                    # For single-element parameters
+                    param_value = float(param.data.item())
+                    weight_stats[name] = {
+                        'shape': list(param.shape),
+                        'mean': param_value,
+                        'std': 0.0,  # Standard deviation of single value is 0
+                        'min': param_value,
+                        'max': param_value,
+                        'norm': abs(param_value),
+                        'sparsity': float(param_value == 0.0)
+                    }
+                else:
+                    # For normal parameters with multiple elements
+                    weight_stats[name] = {
+                        'shape': list(param.shape),
+                        'mean': float(param.data.mean()),
+                        'std': float(param.data.std(unbiased=False)),
+                        'min': float(param.data.min()),
+                        'max': float(param.data.max()),
+                        'norm': float(param.data.norm()),
+                        'sparsity': float((param.data == 0).sum()) / param.numel()
+                    }
+        
+        # Create comprehensive model info
+        model_info = {
+            'model_name': model_name,
+            'architecture': str(model),
+            'total_parameters': total_params,
+            'trainable_parameters': trainable_params,
+            'model_size_mb': model_size_mb,
+            'layer_count': len(layer_info),
+            'layers': layer_info,
+            'weight_statistics': weight_stats,
+            'training_params': training_params or {},
+            'model_class': type(model).__name__
+        }
+        
+        # Log as artifact
+        self.log_artifact(f"{model_name}_info", model_info, "json")
+        
+        # Log model state dict
+        self.log_artifact(f"{model_name}_weights", model.state_dict(), "torch")
+        
+        # Log key metrics
+        self.log_metric(f"{model_name}_total_params", total_params)
+        self.log_metric(f"{model_name}_trainable_params", trainable_params)
+        self.log_metric(f"{model_name}_size_mb", model_size_mb)
+        
+        print(f"Logged model info: {model_name}")
+        print(f"   Total params: {total_params:,}")
+        print(f"   Trainable params: {trainable_params:,}")
+        print(f"   Model size: {model_size_mb:.2f} MB")
+        print(f"   Layers: {len(layer_info)}")
+    
     def finish_experiment(self, status: str = "completed"):
         """Finish the current experiment."""
         if not self.current_experiment:

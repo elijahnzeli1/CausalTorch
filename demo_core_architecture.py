@@ -107,7 +107,7 @@ def demonstrate_from_scratch_building():
     test_input = torch.randn(2, 10, 256)
     causal_output = causal_core(test_input)
     
-    print(f"   📈 Causal reasoning layers: {len(causal_core.reasoning_layers)}")
+    print(f"    Causal reasoning layers: {len(causal_core.reasoning_layers)}")
     print(f"   🧠 Output features: {list(causal_output.keys())}")
     print(f"   🎯 Reasoning confidence: {causal_output['reasoning_confidence'].mean():.3f}")
     
@@ -164,7 +164,7 @@ def demonstrate_pretrained_finetuning():
     
     print(f"   📊 Original output shape: {original_output.shape}")
     print(f"   📊 Fine-tuned output shape: {finetuned_output.shape}")
-    print(f"   📈 Output difference (mean): {(finetuned_output - original_output).abs().mean():.4f}")
+    print(f"    Output difference (mean): {(finetuned_output - original_output).abs().mean():.4f}")
     
     # Show causal reasoning integration
     causal_context = finetuner.causal_reasoning_engine(test_input)
@@ -257,7 +257,7 @@ def demonstrate_intervention_api(reasoning_engine):
     
     intervened_confidence = intervened_result['reasoning_confidence'].mean()
     print(f"   🎯 Intervened confidence: {intervened_confidence:.3f}")
-    print(f"   📈 Confidence change: {(intervened_confidence - baseline_confidence):.3f}")
+    print(f"    Confidence change: {(intervened_confidence - baseline_confidence):.3f}")
     
     # Show intervention effects
     feature_diff = (intervened_result['causal_features'] - baseline_result['causal_features']).abs().mean()
@@ -363,7 +363,7 @@ def demonstrate_causal_regularization():
         losses.append(loss.item())
         print(f"   Epoch {epoch+1}: Loss = {loss.item():.4f}")
     
-    print(f"\\n📈 Training completed!")
+    print(f"\\n Training completed!")
     print(f"   🏁 Final loss: {losses[-1]:.4f}")
     print(f"   📉 Loss reduction: {losses[0] - losses[-1]:.4f}")
     

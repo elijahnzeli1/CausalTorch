@@ -82,7 +82,7 @@ as we are not finetuning or building an ai model."
 3. 🎯 Custom Control: Full control over architecture and generation
 4. ⚡ Optimization: Optimized specifically for causal reasoning
 5. 🔧 Maintainability: Pure CausalTorch codebase
-6. 📈 Scalability: Configurable architecture for different use cases
+6.  Scalability: Configurable architecture for different use cases
 7. 🔬 Research-Ready: Built for causal AI research and development
 
 🎉 FINAL STATUS: 

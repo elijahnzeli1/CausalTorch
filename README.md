@@ -36,7 +36,7 @@ New features include:
 - 🎬 **Video Generation**: Create temporally consistent videos with causal effects
 - 🤖 **Reinforcement Learning**: RL agents with episodic memory and causal prioritization
 - 🔬 **MLOps Platform**: Complete experiment tracking and model management
-- 📈 **Causal Metrics**: Evaluate models with specialized causal fidelity metrics
+-  **Causal Metrics**: Evaluate models with specialized causal fidelity metrics
 - ⚡ **Production Ready**: Robust, stable, and production-ready architecture
 
 ## Installation
