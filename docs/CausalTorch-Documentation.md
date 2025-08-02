@@ -33,15 +33,56 @@ Unlike traditional generative models that rely solely on correlations in trainin
 
 ### What's New in v2.0
 
-CausalTorch v2.0 introduces powerful new capabilities organized around seven core pillars:
+CausalTorch v2.0 introduces revolutionary new capabilities that establish it as a complete AI platform:
 
-1. **Causal First**: All models reason about cause-effect relationships with improved fidelity
-2. **Sparsity as Law**: Dynamic activation of <10% of parameters for efficient computation
-3. **Neuro-Symbolic Fusion**: Enhanced integration of neural and symbolic components
-4. **Ethics by Architecture**: Hardcoded ethical rules as architectural constraints
-5. **Decentralized Intelligence**: Federated learning preserving causal knowledge
-6. **Creative Computation**: Novel concept generation via causal interventions
-7. **Self-Evolving Meta-Learning**: Models that adapt their architecture to the task
+**🔥 Major New Features:**
+
+1. **Native Text Generation**: Complete replacement of GPT-2 dependencies with pure CausalTorch `cnsg` architecture
+   - Zero external model dependencies
+   - Full causal integration in every layer
+   - Custom generation algorithms with causal constraints
+   - Production-ready stability and performance
+
+2. **Comprehensive Computer Vision**: Full vision support with causal reasoning
+   - `CausalVisionTransformer` for image classification and feature extraction
+   - `CausalCNN` for image generation with spatial causal reasoning  
+   - `CNSGNet` for video and temporal visual modeling
+   - Multi-modal text-vision integration
+
+3. **Advanced Reinforcement Learning**: Complete RL framework with episodic memory
+   - `CausalRLAgent` supporting DQN, Policy Gradient, Actor-Critic, and PPO
+   - `EpisodicMemory` with causal prioritization for experience replay
+   - Automatic causal strength calculation for experiences
+   - Causal intervention capabilities in RL environments
+
+4. **MLOps Platform**: Comprehensive experiment tracking and model management
+   - `CausalMLOps` platform for experiment lifecycle management
+   - Model registry with versioning and metadata tracking
+   - Hyperparameter optimization with causal-aware search
+   - Automated dashboard generation and monitoring
+
+5. **Multi-Modal Architecture**: Seamless integration across modalities
+   - Cross-modal causal attention mechanisms
+   - Joint text-vision-action learning with causal constraints
+   - Unified architecture supporting all modality combinations
+   - Causal fusion layers for multi-modal understanding
+
+**🏗️ Architectural Improvements:**
+
+- **Zero Dependencies**: Eliminated external model dependencies (GPT-2, transformers)
+- **Native Implementation**: All core functionality built from scratch in PyTorch + CausalTorch
+- **Production Ready**: Stable, tested, and optimized for real-world deployment
+- **Modular Design**: Plug-and-play components for custom architecture building
+- **Causal Integration**: Every component includes causal reasoning capabilities
+
+**⚡ Performance & Efficiency:**
+
+- **Sparse Activation**: <10% parameter activation during inference
+- **Causal Prioritization**: Intelligent memory and computation allocation
+- **Dynamic Architecture**: Self-adapting models based on task requirements
+- **Efficient Training**: Reduced data requirements through causal reasoning
+
+CausalTorch v2.0 represents a complete AI platform built on causal principles, offering everything from basic layers to full MLOps capabilities, all with native causal reasoning integrated throughout.
 
 ## Theoretical Framework
 
@@ -392,7 +433,310 @@ class CounterfactualDreamer(nn.Module):
 
 ## Implementation Domains
 
-### Text Generation
+### Native Text Generation (v2.0 Update)
+
+CausalTorch v2.0 provides a completely native text generation system built from the ground up with causality as its foundation, **eliminating all dependencies on external models like GPT-2**.
+
+**Native cnsg Architecture:**
+
+The new `cnsg` (Causal Neuro-Symbolic Generator) is CausalTorch's flagship text generation model:
+
+```python
+class cnsg(nn.Module):
+    """Native Causal Neuro-Symbolic Generator for text generation.
+    
+    Built from scratch for CausalTorch without external model dependencies.
+    """
+    def __init__(self, vocab_size=50257, d_model=768, n_heads=12, n_layers=12, 
+                 d_ff=3072, max_seq_length=1024, causal_rules=None):
+        super().__init__()
+        
+        # Native CausalTorch components
+        self.token_embeddings = nn.Embedding(vocab_size, d_model)
+        self.positional_encoding = CausalPositionalEncoding(d_model, max_seq_length)
+        self.transformer_layers = nn.ModuleList([
+            CausalTransformerBlock(d_model, n_heads, d_ff, causal_rules or {})
+            for _ in range(n_layers)
+        ])
+        self.final_norm = nn.LayerNorm(d_model)
+        self.output_projection = nn.Linear(d_model, vocab_size)
+        self.generation_causal_layer = CausalSymbolicLayer(causal_rules or {})
+```
+
+**Key Architecture Advantages:**
+
+- ✅ **Zero External Dependencies**: Pure PyTorch + CausalTorch implementation
+- ✅ **Causal Integration**: Every layer includes causal reasoning
+- ✅ **Native Generation**: Custom generation algorithm with causal constraints
+- ✅ **Production Ready**: Stable, tested, and optimized architecture
+- ✅ **Full Control**: Complete control over training and inference
+
+**Example Usage:**
+
+```python
+from causaltorch.models import cnsg
+
+# Create native causal text model (no external dependencies)
+model = cnsg(
+    vocab_size=10000,
+    d_model=512,
+    n_heads=8,
+    n_layers=6,
+    causal_rules={
+        'cause_effect_pairs': [
+            {'cause': 'rain', 'effect': 'wet_ground', 'strength': 0.9}
+        ]
+    }
+)
+
+# Generate with causal constraints
+generated = model.generate(
+    input_ids=torch.randint(0, 1000, (1, 10)),
+    max_length=50,
+    causal_constraints={'forbidden_words': [999]}
+)
+```
+
+### Computer Vision Support (New in v2.0)
+
+CausalTorch v2.0 introduces comprehensive computer vision capabilities with causal reasoning integrated into vision models.
+
+**CausalVisionTransformer:**
+
+A Vision Transformer architecture with causal reasoning for image classification and feature extraction:
+
+```python
+class CausalVisionTransformer(nn.Module):
+    """Vision Transformer with integrated causal reasoning."""
+    def __init__(self, image_size=224, patch_size=16, num_classes=1000, 
+                 d_model=768, n_heads=12, n_layers=6, causal_rules=None):
+        super().__init__()
+        
+        # Patch embedding with causal constraints
+        self.patch_embedding = CausalPatchEmbedding(
+            image_size, patch_size, d_model, causal_rules
+        )
+        
+        # Causal transformer blocks for vision
+        self.transformer_blocks = nn.ModuleList([
+            CausalVisionBlock(d_model, n_heads, causal_rules)
+            for _ in range(n_layers)
+        ])
+        
+        # Classification head
+        self.classifier = CausalClassificationHead(d_model, num_classes, causal_rules)
+```
+
+**CausalCNN for Image Generation:**
+
+Convolutional architecture with causal constraints for image generation:
+
+```python
+class CausalCNN(nn.Module):
+    """CNN with causal reasoning for image generation."""
+    def __init__(self, latent_dim=128, image_size=64, causal_rules=None):
+        super().__init__()
+        
+        # Causal latent encoder
+        self.causal_encoder = CausalLatentEncoder(latent_dim, causal_rules)
+        
+        # Causal decoder with spatial reasoning
+        self.decoder = CausalSpatialDecoder(latent_dim, image_size, causal_rules)
+        
+        # Causal upsampling layers
+        self.upsampling = CausalUpsampling(causal_rules)
+```
+
+**Vision Example Usage:**
+
+```python
+from causaltorch.models import CausalVisionTransformer, CausalCNN
+from causaltorch.rules import CausalRuleSet, CausalRule
+
+# Create vision rules
+vision_rules = CausalRuleSet()
+vision_rules.add_rule(CausalRule("sunny_weather", "shadows_present", 0.8))
+vision_rules.add_rule(CausalRule("rain_intensity", "ground_wetness", 0.9))
+
+# Vision classification
+vision_model = CausalVisionTransformer(
+    image_size=224,
+    num_classes=1000,
+    causal_rules=vision_rules.to_dict()
+)
+
+image = torch.randn(1, 3, 224, 224)
+logits, causal_features = vision_model(image)
+
+# Image generation with causal constraints
+generator = CausalCNN(
+    latent_dim=128,
+    image_size=64,
+    causal_rules=vision_rules.to_dict()
+)
+
+generated_image = generator.generate(
+    num_samples=1,
+    causal_interventions={"sunny_weather": 0.9}
+)
+```
+
+### Reinforcement Learning with Episodic Memory (New in v2.0)
+
+CausalTorch v2.0 introduces comprehensive reinforcement learning support with sophisticated episodic memory and causal prioritization.
+
+**CausalRLAgent:**
+
+RL agents with integrated causal reasoning and episodic memory:
+
+```python
+class CausalRLAgent(nn.Module):
+    """RL agent with causal reasoning and episodic memory."""
+    def __init__(self, state_dim, action_dim, agent_type='dqn', 
+                 memory_capacity=10000, causal_config=None):
+        super().__init__()
+        
+        # Episodic memory with causal prioritization
+        self.episodic_memory = EpisodicMemory(
+            capacity=memory_capacity,
+            causal_threshold=0.5
+        )
+        
+        # Causal reasoning core
+        self.causal_core = CausalReasoningEngine(causal_config or {})
+        
+        # Agent-specific networks
+        if agent_type == 'dqn':
+            self.q_network = CausalQNetwork(state_dim, action_dim, causal_config)
+        elif agent_type == 'policy_gradient':
+            self.policy_network = CausalPolicyNetwork(state_dim, action_dim, causal_config)
+        # ... other agent types
+```
+
+**EpisodicMemory with Causal Prioritization:**
+
+```python
+class EpisodicMemory:
+    """Memory system that prioritizes causally significant experiences."""
+    def __init__(self, capacity=10000, causal_threshold=0.5):
+        self.capacity = capacity
+        self.causal_threshold = causal_threshold
+        self.memory = [None] * capacity
+        self.position = 0
+    
+    def push(self, state, action, reward, next_state, done, causal_strength):
+        """Store experience with causal strength calculation."""
+        self.memory[self.position] = {
+            'state': state,
+            'action': action, 
+            'reward': reward,
+            'next_state': next_state,
+            'done': done,
+            'causal_strength': causal_strength
+        }
+        self.position = (self.position + 1) % self.capacity
+    
+    def sample(self, batch_size, use_causal_priority=True):
+        """Sample experiences with causal prioritization."""
+        if use_causal_priority:
+            # Priority sampling based on causal strength
+            return self._causal_priority_sample(batch_size)
+        else:
+            return random.sample([m for m in self.memory if m], batch_size)
+```
+
+**RL Example Usage:**
+
+```python
+from causaltorch.core_architecture import FromScratchModelBuilder
+
+# Create RL agent with episodic memory
+rl_config = {
+    'causal_config': {
+        'hidden_dim': 128,
+        'causal_rules': [
+            {'cause': 'action', 'effect': 'reward', 'strength': 0.9}
+        ]
+    }
+}
+
+builder = FromScratchModelBuilder(rl_config)
+agent = builder.build_model(
+    'reinforcement_learning',
+    state_dim=8,
+    action_dim=4,
+    agent_type='dqn',
+    memory_capacity=10000
+)
+
+# Agent automatically prioritizes causally significant experiences
+state = torch.randn(1, 8)
+action = agent.select_action(state, explore=True)
+reward = 10.0
+next_state = torch.randn(1, 8)
+
+# Store with automatic causal strength calculation
+agent.store_experience(state, action, reward, next_state, done=False)
+
+# Learning uses causal prioritization
+loss_info = agent.learn()
+```
+
+### MLOps Platform Integration (New in v2.0)
+
+CausalTorch v2.0 includes a comprehensive MLOps platform for experiment tracking, model management, and causal analysis.
+
+**CausalMLOps Platform:**
+
+```python
+class CausalMLOps:
+    """Complete MLOps platform for causal AI experiments."""
+    def __init__(self, project_name, experiment_name=None, storage_backend='sqlite'):
+        self.project_name = project_name
+        self.experiment_name = experiment_name or f"exp_{int(time.time())}"
+        
+        # Initialize components
+        self.model_registry = ModelRegistry(storage_backend)
+        self.experiment_tracker = ExperimentTracker(storage_backend)
+        self.hyperparameter_optimizer = HyperparameterOptimizer()
+        self.dashboard_generator = DashboardGenerator()
+```
+
+**MLOps Example Usage:**
+
+```python
+from causaltorch.mlops import CausalMLOps
+from causaltorch.models import cnsg
+
+# Initialize MLOps platform
+mlops = CausalMLOps(
+    project_name="causal_text_generation",
+    experiment_name="native_cnsg_experiment"
+)
+
+# Track model and experiments
+model = cnsg(vocab_size=5000, d_model=256)
+mlops.log_model_info(model, "native_cnsg_v1")
+
+# Track metrics during training
+mlops.log_metrics({
+    'loss': 0.45,
+    'causal_adherence': 0.89,
+    'generation_quality': 0.76
+}, step=100)
+
+# Save to model registry
+model_version = mlops.model_registry.save_model(
+    model=model,
+    name="native_cnsg",
+    version="2.0.0",
+    metadata={"architecture": "native_causal_transformer"}
+)
+
+# Generate dashboard
+dashboard_path = mlops.generate_dashboard()
+print(f"Dashboard: {dashboard_path}")
+```
 
 CausalTorch provides a native text generation system built from the ground up with causality as its foundation, eliminating dependencies on external models like GPT-2.
 
@@ -1520,12 +1864,36 @@ novel_output = dreamer.imagine(best_params)
 ## CausalTorch Library
 
 ### Installation
+
+**Core Installation:**
 ```bash
 python -m venv venv
 venv\Scripts\activate
 pip install torch torchvision pytorch-lightning
 # Install CausalTorch
 pip install causaltorch
+```
+
+**Extended Capabilities (New in v2.0):**
+```bash
+# For Vision Support
+pip install opencv-python pillow torchvision
+
+# For Reinforcement Learning
+pip install gymnasium numpy
+
+# For MLOps Platform  
+pip install mlflow wandb tensorboard
+
+# Complete Installation with All Features
+pip install causaltorch[vision,rl,mlops]
+```
+
+**Development Installation:**
+```bash
+git clone https://github.com/elijahnzeli1/causaltorch.git
+cd causaltorch
+pip install -e .[dev,vision,rl,mlops]
 ```
 
 ### Key Components
@@ -1939,6 +2307,269 @@ for epoch in range(10):
         loss = outputs.loss
         loss.backward()
         optimizer.step()
+```
+
+## Complete Multi-Modal Examples (New in v2.0)
+
+### Native Text Generation with Causal Constraints
+
+```python
+from causaltorch.models import cnsg
+from causaltorch.rules import CausalRuleSet, CausalRule
+import torch
+
+# Create native text generation model (no external dependencies)
+rules = CausalRuleSet()
+rules.add_rule(CausalRule("rain", "wet_ground", 0.9))
+rules.add_rule(CausalRule("heat", "evaporation", 0.8))
+
+model = cnsg(
+    vocab_size=10000,
+    d_model=512,
+    n_heads=8,
+    n_layers=6,
+    causal_rules=rules.to_dict()
+)
+
+# Generate text with causal interventions
+input_ids = torch.randint(0, 1000, (1, 10))
+generated = model.generate(
+    input_ids=input_ids,
+    max_length=50,
+    causal_interventions={"rain": 0.95},
+    temperature=0.8
+)
+
+print(f"Generated with rain intervention: {generated}")
+```
+
+### Vision Classification with Causal Reasoning
+
+```python
+from causaltorch.models import CausalVisionTransformer
+from causaltorch.rules import CausalRuleSet, CausalRule
+import torch
+
+# Create vision rules for weather classification
+vision_rules = CausalRuleSet()
+vision_rules.add_rule(CausalRule("cloudy_sky", "rain_probability", 0.7))
+vision_rules.add_rule(CausalRule("wet_surfaces", "recent_rain", 0.9))
+
+# Initialize causal vision model
+vision_model = CausalVisionTransformer(
+    image_size=224,
+    patch_size=16,
+    num_classes=5,  # sunny, cloudy, rainy, snowy, foggy
+    d_model=768,
+    n_heads=12,
+    n_layers=6,
+    causal_rules=vision_rules.to_dict()
+)
+
+# Process image with causal analysis
+image = torch.randn(1, 3, 224, 224)
+logits, causal_features = vision_model(image)
+
+# Get predictions with causal explanation
+predictions = torch.softmax(logits, dim=-1)
+causal_explanation = vision_model.explain_prediction(image)
+
+print(f"Weather prediction: {predictions}")
+print(f"Causal explanation: {causal_explanation}")
+```
+
+### Reinforcement Learning with Episodic Memory
+
+```python
+from causaltorch.core_architecture import FromScratchModelBuilder
+import torch
+import gymnasium as gym
+
+# Create RL environment
+env = gym.make('CartPole-v1')
+
+# Configure RL agent with causal reasoning
+rl_config = {
+    'causal_config': {
+        'hidden_dim': 128,
+        'causal_rules': [
+            {'cause': 'pole_angle', 'effect': 'cart_position', 'strength': 0.8},
+            {'cause': 'action', 'effect': 'reward', 'strength': 0.9}
+        ]
+    }
+}
+
+# Build causal RL agent
+builder = FromScratchModelBuilder(rl_config)
+agent = builder.build_model(
+    'reinforcement_learning',
+    state_dim=env.observation_space.shape[0],
+    action_dim=env.action_space.n,
+    agent_type='dqn',
+    memory_capacity=10000
+)
+
+# Training loop with causal memory
+total_reward = 0
+state, info = env.reset()
+
+for step in range(1000):
+    # Agent selects action based on causal reasoning
+    action = agent.select_action(torch.FloatTensor(state).unsqueeze(0))
+    next_state, reward, done, truncated, info = env.step(action.item())
+    
+    # Store experience with automatic causal strength calculation
+    agent.store_experience(state, action.item(), reward, next_state, done)
+    
+    # Learn from causally prioritized experiences
+    if len(agent.episodic_memory) > 32:
+        loss_info = agent.learn()
+    
+    total_reward += reward
+    state = next_state
+    
+    if done or truncated:
+        print(f"Episode reward: {total_reward}")
+        state, info = env.reset()
+        total_reward = 0
+
+# Analyze causal patterns learned by agent
+causal_analysis = agent.analyze_causal_patterns()
+print(f"Learned causal patterns: {causal_analysis}")
+```
+
+### Multi-Modal Integration: Text-Vision Model
+
+```python
+from causaltorch.models import cnsg, CausalVisionTransformer
+from causaltorch.layers import CausalAttention
+import torch
+import torch.nn as nn
+
+class MultiModalCausalModel(nn.Module):
+    """Multi-modal model combining text and vision with causal reasoning."""
+    
+    def __init__(self, text_vocab_size=10000, vision_num_classes=1000, 
+                 d_model=512, causal_rules=None):
+        super().__init__()
+        
+        # Text and vision encoders
+        self.text_encoder = cnsg(
+            vocab_size=text_vocab_size,
+            d_model=d_model,
+            causal_rules=causal_rules
+        )
+        
+        self.vision_encoder = CausalVisionTransformer(
+            image_size=224,
+            num_classes=vision_num_classes,
+            d_model=d_model,
+            causal_rules=causal_rules
+        )
+        
+        # Cross-modal causal attention
+        self.cross_modal_attention = CausalAttention(
+            d_model, num_heads=8, causal_rules=causal_rules
+        )
+        
+        # Fusion layer
+        self.fusion = nn.Linear(d_model * 2, d_model)
+        self.classifier = nn.Linear(d_model, 10)  # 10 classes
+    
+    def forward(self, text_input, image_input):
+        # Encode text and image
+        text_features = self.text_encoder.encode(text_input)
+        image_features = self.vision_encoder.encode(image_input)
+        
+        # Cross-modal causal attention
+        attended_text = self.cross_modal_attention(
+            text_features, image_features, image_features
+        )
+        attended_image = self.cross_modal_attention(
+            image_features, text_features, text_features
+        )
+        
+        # Fuse modalities
+        fused = torch.cat([attended_text.mean(1), attended_image.mean(1)], dim=-1)
+        fused = self.fusion(fused)
+        
+        return self.classifier(fused)
+
+# Example usage
+causal_rules = {
+    'cause_effect_pairs': [
+        {'cause': 'visual_objects', 'effect': 'text_description', 'strength': 0.9},
+        {'cause': 'text_context', 'effect': 'visual_attention', 'strength': 0.8}
+    ]
+}
+
+model = MultiModalCausalModel(causal_rules=causal_rules)
+
+# Process text and image together
+text = torch.randint(0, 1000, (1, 20))
+image = torch.randn(1, 3, 224, 224)
+
+output = model(text, image)
+print(f"Multi-modal classification: {output}")
+```
+
+### MLOps Integration and Experiment Tracking
+
+```python
+from causaltorch.mlops import CausalMLOps
+from causaltorch.models import cnsg
+import torch
+
+# Initialize MLOps platform
+mlops = CausalMLOps(
+    project_name="advanced_causal_ai",
+    experiment_name="multi_modal_experiment_v2"
+)
+
+# Create and register models
+text_model = cnsg(vocab_size=5000, d_model=256)
+mlops.log_model_info(text_model, "native_cnsg_v2")
+
+# Track training metrics
+for epoch in range(10):
+    # Simulate training
+    loss = 0.5 * (0.9 ** epoch)  # Decreasing loss
+    causal_adherence = min(0.95, 0.7 + epoch * 0.025)  # Improving causal adherence
+    
+    mlops.log_metrics({
+        'train_loss': loss,
+        'causal_adherence_score': causal_adherence,
+        'generation_quality': min(0.9, 0.6 + epoch * 0.03),
+        'causal_interventions_successful': min(100, 60 + epoch * 4)
+    }, step=epoch)
+
+# Hyperparameter optimization
+best_params = mlops.optimize_hyperparameters(
+    param_space={
+        'd_model': [256, 512, 768],
+        'n_heads': [4, 8, 12],
+        'learning_rate': [1e-4, 5e-4, 1e-3]
+    },
+    n_trials=20
+)
+
+print(f"Best hyperparameters: {best_params}")
+
+# Save optimized model
+model_version = mlops.model_registry.save_model(
+    model=text_model,
+    name="native_cnsg_optimized",
+    version="2.0.1",
+    metadata={
+        "architecture": "native_causal_transformer",
+        "optimization": "hyperparameter_tuned",
+        "causal_adherence": causal_adherence
+    }
+)
+
+# Generate comprehensive dashboard
+dashboard_path = mlops.generate_dashboard()
+print(f"Experiment dashboard: {dashboard_path}")
 ```
 
 ### Using v2.0 Components
