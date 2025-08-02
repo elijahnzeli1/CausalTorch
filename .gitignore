@@ -67,3 +67,4 @@ publish_package.bat
 *.bat
 
 multimodal_causal/
+demo_workspace/

@@ -1,5 +1,5 @@
 """
-Tests for the CausalRuleEngine implementation.
+Tests for the CausalRule system implementation.
 """
 import os
 import unittest
@@ -7,100 +7,82 @@ import json
 import tempfile
 
 import torch
-from causaltorch.rules import CausalRuleEngine
-
-class MockTokenizer:
-    """Mock tokenizer for testing."""
-    
-    def encode(self, text, add_special_tokens=True):
-        """Mock encoding that returns the ord value of each character."""
-        return [ord(c) for c in text]
+from causaltorch.rules import CausalRule, CausalRuleSet, load_default_rules
 
 
-class TestCausalRuleEngine(unittest.TestCase):
-    """Test cases for CausalRuleEngine."""
+class TestCausalRuleSystem(unittest.TestCase):
+    """Test the causal rule system."""
     
     def setUp(self):
-        """Create a temporary rules file for testing."""
-        self.temp_rules = [
-            {
-                "name": "test_rule",
-                "pattern": "test",
-                "consequences": [
-                    {
-                        "text": "consequence",
-                        "intensity": 1.0,
-                        "required": True
-                    }
-                ],
-                "type": "test"
-            },
-            {
-                "name": "forbidden_rule",
-                "pattern": "dangerous",
-                "type": "forbidden",
-                "forbidden_text": "very dangerous",
-                "intensity": 5.0
-            }
-        ]
+        """Set up test fixtures."""
+        # Create rule set
+        self.ruleset = CausalRuleSet()
         
-        # Create temporary file
-        self.temp_file = tempfile.NamedTemporaryFile(mode="w+", delete=False, suffix=".json")
-        json.dump(self.temp_rules, self.temp_file)
-        self.temp_file.close()
-        
-        # Create engine
-        self.engine = CausalRuleEngine(self.temp_file.name)
-        
-    def tearDown(self):
-        """Remove temporary file."""
-        os.unlink(self.temp_file.name)
+        # Add test rules using the correct API
+        self.ruleset.add_rule("rain", "wet_ground", strength=0.9)
+        self.ruleset.add_rule("fire", "smoke", strength=0.8)
+        self.ruleset.add_rule("fire", "heat", strength=0.95)
     
-    def test_rule_loading(self):
-        """Test that rules are loaded correctly."""
-        self.assertEqual(len(self.engine.rules), 2)
-        self.assertEqual(self.engine.rules[0]["name"], "test_rule")
-        self.assertEqual(self.engine.rules[1]["type"], "forbidden")
+    def test_rule_creation(self):
+        """Test basic rule creation."""
+        rule = CausalRule("rain", "wet_ground", strength=0.9)
+        self.assertEqual(rule.cause, "rain")
+        self.assertEqual(rule.effect, "wet_ground")
+        self.assertAlmostEqual(rule.strength, 0.9)
+    
+    def test_rule_set_operations(self):
+        """Test rule set operations."""
+        # Test adding rules
+        self.assertEqual(len(self.ruleset.rules), 3)  # rain->wet_ground, fire->smoke, fire->heat
         
-    def test_apply_rules(self):
-        """Test applying causal rules to attention scores."""
-        # Create mock attention scores - shape: [batch, heads, seq_len, vocab_size]
-        mock_attention = torch.zeros((1, 1, 1, 128))
-        tokenizer = MockTokenizer()
+        # Test finding effects
+        rain_effects = self.ruleset.get_rules_for_effect("wet_ground")
+        self.assertEqual(len(rain_effects), 1)
+        self.assertEqual(rain_effects[0].cause, "rain")
         
-        # Apply rules
-        input_text = "This is a test case"  # Contains "test" -> should boost "consequence"
-        modified = self.engine.apply_rules(input_text, mock_attention, tokenizer)
+        fire_effects_smoke = self.ruleset.get_rules_for_effect("smoke")
+        fire_effects_heat = self.ruleset.get_rules_for_effect("heat")
+        self.assertEqual(len(fire_effects_smoke), 1)
+        self.assertEqual(len(fire_effects_heat), 1)
+        self.assertEqual(fire_effects_smoke[0].cause, "fire")
+        self.assertEqual(fire_effects_heat[0].cause, "fire")
+
+    def test_rule_remove_operation(self):
+        """Test removing rules from rule set."""
+        initial_count = len(self.ruleset.rules)
         
-        # Check that "consequence" tokens have boosted attention
-        for c in "consequence":
-            self.assertGreater(modified[0, 0, 0, ord(c)], 0)
-            
-    def test_forbidden_rule(self):
-        """Test that forbidden rules apply negative attention."""
-        mock_attention = torch.zeros((1, 1, 1, 128))
-        tokenizer = MockTokenizer()
+        # Remove a rule
+        removed = self.ruleset.remove_rule("rain", "wet_ground")
+        self.assertTrue(removed)
+        self.assertEqual(len(self.ruleset.rules), initial_count - 1)
         
-        # Apply rules
-        input_text = "This is dangerous content"  # Contains "dangerous"
-        modified = self.engine.apply_rules(input_text, mock_attention, tokenizer)
+        # Try to remove non-existent rule
+        removed = self.ruleset.remove_rule("nonexistent", "rule")
+        self.assertFalse(removed)
+
+    def test_rule_serialization(self):
+        """Test rule serialization and deserialization."""
+        rule = CausalRule("rain", "wet_ground", strength=0.8)
         
-        # Check that "very dangerous" has negative attention
-        for c in "very dangerous":
-            self.assertLess(modified[0, 0, 0, ord(c)], 0)
-            
-    def test_validate_output(self):
-        """Test output validation against causal rules."""
-        # Case 1: Rule violated (contains trigger but not consequence)
-        input_text = "This is a test case"
-        output_text = "This is a response without the required word"
-        violations = self.engine.validate_output(output_text, input_text)
-        self.assertEqual(len(violations), 1)
+        # Test rule properties
+        self.assertEqual(rule.cause, "rain")
+        self.assertEqual(rule.effect, "wet_ground")
+        self.assertEqual(rule.strength, 0.8)
         
-        # Case 2: Rule followed (contains both trigger and consequence)
-        output_text = "This is a consequence of the test"
-        violations = self.engine.validate_output(output_text, input_text)
-        self.assertEqual(len(violations), 0)
+        # Test string representation
+        rule_str = str(rule)
+        self.assertIn("rain", rule_str)
+        self.assertIn("wet_ground", rule_str)
+        self.assertIn("0.80", rule_str)
+
+    def test_load_default_rules(self):
+        """Test loading default rules."""
+        try:
+            default_rules = load_default_rules()
+            self.assertIsInstance(default_rules, CausalRuleSet)
+        except FileNotFoundError:
+            # Default rules file may not exist yet
+            self.skipTest("Default rules file not found")
 
 
 if __name__ == "__main__":

@@ -1919,7 +1919,7 @@ rules = {
 }
 
 # Create model
-model = CNSG_GPT2.from_pretrained("gpt2", causal_rules=rules)
+model = cnsg.from_pretrained("gpt2", causal_rules=rules)
 
 # Generate text
 input_text = "If it rains,"

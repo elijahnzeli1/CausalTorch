@@ -21,7 +21,7 @@ from ..layers import CausalAttentionLayer
 from ..rules import CausalRuleSet, CausalRule
 
 
-class CNSG_GPT2(nn.Module):
+class cnsg(nn.Module):
     """Causal Neuro-Symbolic GPT-2 model for text generation.
     
     This model extends GPT-2 with causal attention to enforce logical

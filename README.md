@@ -64,7 +64,7 @@ pip install causaltorch[dev]
 
 ```python
 import torch
-from causaltorch import CNSG_GPT2
+from causaltorch import cnsg
 from causaltorch.rules import CausalRuleSet, CausalRule
 from transformers import GPT2Tokenizer
 
@@ -74,7 +74,7 @@ rules.add_rule(CausalRule("rain", "wet_ground", strength=0.9))
 rules.add_rule(CausalRule("fire", "smoke", strength=0.8))
 
 # Initialize model and tokenizer
-model = CNSG_GPT2(pretrained_model_name="gpt2", causal_rules=rules.to_dict())
+model = cnsg(pretrained_model_name="gpt2", causal_rules=rules.to_dict())
 model.tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
 
 # Generate text with enforced causal relationships
