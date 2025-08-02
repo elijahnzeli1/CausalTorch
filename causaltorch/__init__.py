@@ -20,7 +20,7 @@ Key components:
 - Causal Regularization: Training stability and consistency
 """
 
-__version__ = "2.0.1"
+__version__ = "2.1.0"
 
 # Core Architecture Components (Primary Interface)
 from .core_architecture import (

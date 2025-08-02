@@ -63,7 +63,7 @@ Let end-users train or fine-tune causal AI models by importing `import causaltor
 
 * Add **integration tests**: e.g. train toy graph → measure counterfactual accuracy.
 
-* Publish on PyPI under your maintainer name with semantic versioning. Example: CausalTorch v2.0.2 was released April 17 2025 (\[v2.0.2 metadata]\([github.com][1])).
+* Publish on PyPI under your maintainer name with semantic versioning. Example: CausalTorch v2.1.0 was released April 17 2025 (\[v2.1.0 metadata]\([github.com][1])).
 
 ---
 

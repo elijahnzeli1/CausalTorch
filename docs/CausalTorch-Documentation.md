@@ -4,7 +4,7 @@
 1. [Introduction](#introduction)
 2. [Theoretical Framework](#theoretical-framework)
 3. [Core Components](#core-components)
-   - [v2.0 Components](#v20-components)
+   - [v2.1 Components](#v20-components)
 4. [Implementation Domains](#implementation-domains)
    - [Text Generation](#text-generation)
    - [Image Generation](#image-generation)
@@ -31,9 +31,9 @@ Unlike traditional generative models that rely solely on correlations in trainin
 - **Generalization**: Poor performance on out-of-distribution examples
 - **Efficiency**: High computational and energy requirements
 
-### What's New in v2.0
+### What's New in v2.1
 
-CausalTorch v2.0 introduces revolutionary new capabilities that establish it as a complete AI platform:
+CausalTorch v2.1 introduces revolutionary new capabilities that establish it as a complete AI platform:
 
 **🔥 Major New Features:**
 
@@ -82,7 +82,7 @@ CausalTorch v2.0 introduces revolutionary new capabilities that establish it as 
 - **Dynamic Architecture**: Self-adapting models based on task requirements
 - **Efficient Training**: Reduced data requirements through causal reasoning
 
-CausalTorch v2.0 represents a complete AI platform built on causal principles, offering everything from basic layers to full MLOps capabilities, all with native causal reasoning integrated throughout.
+CausalTorch v2.1 represents a complete AI platform built on causal principles, offering everything from basic layers to full MLOps capabilities, all with native causal reasoning integrated throughout.
 
 ## Theoretical Framework
 
@@ -166,7 +166,7 @@ CNSG-Nets use Evolutionary Causal Reinforcement Learning:
   - Meeting user-defined goals
   - Creative/novel outputs
 
-### v2.0 Components
+### v2.1 Components
 
 #### CausalHyperNetwork
 
@@ -433,9 +433,9 @@ class CounterfactualDreamer(nn.Module):
 
 ## Implementation Domains
 
-### Native Text Generation (v2.0 Update)
+### Native Text Generation (v2.1 Update)
 
-CausalTorch v2.0 provides a completely native text generation system built from the ground up with causality as its foundation, **eliminating all dependencies on external models like GPT-2**.
+CausalTorch v2.1 provides a completely native text generation system built from the ground up with causality as its foundation, **eliminating all dependencies on external models like GPT-2**.
 
 **Native cnsg Architecture:**
 
@@ -497,9 +497,9 @@ generated = model.generate(
 )
 ```
 
-### Computer Vision Support (New in v2.0)
+### Computer Vision Support (New in v2.1)
 
-CausalTorch v2.0 introduces comprehensive computer vision capabilities with causal reasoning integrated into vision models.
+CausalTorch v2.1 introduces comprehensive computer vision capabilities with causal reasoning integrated into vision models.
 
 **CausalVisionTransformer:**
 
@@ -581,9 +581,9 @@ generated_image = generator.generate(
 )
 ```
 
-### Reinforcement Learning with Episodic Memory (New in v2.0)
+### Reinforcement Learning with Episodic Memory (New in v2.1)
 
-CausalTorch v2.0 introduces comprehensive reinforcement learning support with sophisticated episodic memory and causal prioritization.
+CausalTorch v2.1 introduces comprehensive reinforcement learning support with sophisticated episodic memory and causal prioritization.
 
 **CausalRLAgent:**
 
@@ -682,9 +682,9 @@ agent.store_experience(state, action, reward, next_state, done=False)
 loss_info = agent.learn()
 ```
 
-### MLOps Platform Integration (New in v2.0)
+### MLOps Platform Integration (New in v2.1)
 
-CausalTorch v2.0 includes a comprehensive MLOps platform for experiment tracking, model management, and causal analysis.
+CausalTorch v2.1 includes a comprehensive MLOps platform for experiment tracking, model management, and causal analysis.
 
 **CausalMLOps Platform:**
 
@@ -729,7 +729,7 @@ mlops.log_metrics({
 model_version = mlops.model_registry.save_model(
     model=model,
     name="native_cnsg",
-    version="2.0.0",
+    version="2.1.0",
     metadata={"architecture": "native_causal_transformer"}
 )
 
@@ -1089,7 +1089,7 @@ medical_text = evolving_model.generate("The patient has a high fever and cough,"
 
 **Integration with Other Components:**
 
-The native text generation system integrates seamlessly with other CausalTorch v2.0 components:
+The native text generation system integrates seamlessly with other CausalTorch v2.1 components:
 
 1. **EthicalConstitution:** Built directly into the generation process
 2. **LotteryTicketRouter:** Applied through SparseFFN for efficient computation
@@ -1627,7 +1627,7 @@ causal_rules = {
 
 ### Meta-Learning
 
-CausalTorch v2.0 introduces powerful meta-learning capabilities through CausalHyperNetworks.
+CausalTorch v2.1 introduces powerful meta-learning capabilities through CausalHyperNetworks.
 
 **Architecture:**
 ```python
@@ -1676,7 +1676,7 @@ meta_loss = maml.meta_train(task_batch, loss_fn=nn.MSELoss())
 
 ### Ethical AI
 
-CausalTorch v2.0 introduces the EthicalConstitution framework for ensuring ethical AI outputs.
+CausalTorch v2.1 introduces the EthicalConstitution framework for ensuring ethical AI outputs.
 
 **Architecture:**
 ```python
@@ -1745,7 +1745,7 @@ for inputs, targets in dataloader:
 
 ### Federated Learning
 
-CausalTorch v2.0 includes decentralized learning tools with the CausalDAO.
+CausalTorch v2.1 includes decentralized learning tools with the CausalDAO.
 
 **Architecture:**
 ```python
@@ -1805,7 +1805,7 @@ def secure_aggregate(updates, weights):
 
 ### Creative Generation
 
-CausalTorch v2.0 introduces CounterfactualDreamer for creative concept generation.
+CausalTorch v2.1 introduces CounterfactualDreamer for creative concept generation.
 
 **Architecture:**
 ```python
@@ -1874,7 +1874,7 @@ pip install torch torchvision pytorch-lightning
 pip install causaltorch
 ```
 
-**Extended Capabilities (New in v2.0):**
+**Extended Capabilities (New in v2.1):**
 ```bash
 # For Vision Support
 pip install opencv-python pillow torchvision
@@ -1969,7 +1969,7 @@ def causal_consistency_loss(outputs, latents, causal_rules):
     return loss
 ```
 
-#### v2.0 Components
+#### v2.1 Components
 
 **CausalHyperNetwork & MAML:**
 ```python
@@ -2178,7 +2178,7 @@ def novelty_index(generated, training_data):
 
 ### Creative Metrics
 
-CausalTorch v2.0 introduces metrics for evaluating creative generation:
+CausalTorch v2.1 introduces metrics for evaluating creative generation:
 
 ```python
 # Novelty measurement
@@ -2242,7 +2242,7 @@ def ethical_filter(generated_content):
 
 ### 3. Quantum Causal Learning
 
-CausalTorch v2.0 lays groundwork for future quantum computing integration:
+CausalTorch v2.1 lays groundwork for future quantum computing integration:
 
 ```python
 # Conceptual example of quantum causal circuit
@@ -2309,7 +2309,7 @@ for epoch in range(10):
         optimizer.step()
 ```
 
-## Complete Multi-Modal Examples (New in v2.0)
+## Complete Multi-Modal Examples (New in v2.1)
 
 ### Native Text Generation with Causal Constraints
 
@@ -2559,7 +2559,7 @@ print(f"Best hyperparameters: {best_params}")
 model_version = mlops.model_registry.save_model(
     model=text_model,
     name="native_cnsg_optimized",
-    version="2.0.1",
+    version="2.1.0",
     metadata={
         "architecture": "native_causal_transformer",
         "optimization": "hyperparameter_tuned",
@@ -2572,7 +2572,7 @@ dashboard_path = mlops.generate_dashboard()
 print(f"Experiment dashboard: {dashboard_path}")
 ```
 
-### Using v2.0 Components
+### Using v2.1 Components
 
 ```python
 # Meta-learning with CausalHyperNetwork
@@ -2614,4 +2614,4 @@ if not passed:
 
 ---
 
-This documentation presents a unified framework for causal neuro-symbolic generative networks that works across text, image, and video domains, with v2.0 adding powerful capabilities for meta-learning, sparse computation, ethical AI, federated learning, and creative generation. By integrating causality, symbolic reasoning, and bio-inspired architectures, CNSG-Nets represent a paradigm shift in generative AI, enabling more logical, efficient, and data-frugal models with applications in science, art, and beyond. 
+This documentation presents a unified framework for causal neuro-symbolic generative networks that works across text, image, and video domains, with v2.1 adding powerful capabilities for meta-learning, sparse computation, ethical AI, federated learning, and creative generation. By integrating causality, symbolic reasoning, and bio-inspired architectures, CNSG-Nets represent a paradigm shift in generative AI, enabling more logical, efficient, and data-frugal models with applications in science, art, and beyond. 

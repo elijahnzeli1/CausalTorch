@@ -11,7 +11,7 @@ This package provides plotting and visualization utilities for:
 - Evaluation metrics and comparisons
 """
 
-__version__ = "2.0.1"
+__version__ = "2.1.0"
 
 # Import plot functions
 from .plot import (

@@ -6,9 +6,9 @@
 
 CausalTorch is a PyTorch library for building generative models with explicit causal constraints. It integrates graph-based causal reasoning with deep learning to create AI systems that respect logical causal relationships.
 
-## 🎉 What's New in CausalTorch v2.0
+## 🎉 What's New in CausalTorch v2.1
 
-CausalTorch v2.0 introduces powerful new capabilities organized around seven core pillars:
+CausalTorch v2.1 introduces powerful new capabilities organized around seven core pillars:
 
 1. **Causal First**: All models reason about cause-effect relationships with improved fidelity
 2. **Sparsity as Law**: Dynamic activation of <10% of parameters for efficient computation
@@ -225,7 +225,7 @@ for epoch in range(10):
 model_version = mlops.model_registry.save_model(
     model=model,
     name="native_cnsg",
-    version="1.0.0",
+    version="2.1.0",
     metadata={"architecture": "native_causal_transformer"}
 )
 
@@ -234,7 +234,7 @@ dashboard_path = mlops.generate_dashboard()
 print(f"Dashboard saved to: {dashboard_path}")
 ```
 
-### v2.0: Meta-Learning with Causal HyperNetworks
+### v2.1: Meta-Learning with Causal HyperNetworks
 
 ```python
 import torch
@@ -273,7 +273,7 @@ y1 = model1(torch.randn(5, 10))  # For task 1
 y2 = model2(torch.randn(5, 10))  # For task 2
 ```
 
-### v2.0: Creative Generation with Counterfactual Dreamer
+### v2.1: Creative Generation with Counterfactual Dreamer
 
 ```python
 import torch
@@ -345,7 +345,7 @@ for i, rain in enumerate(rain_levels):
 plt.show()
 ```
 
-### v2.0: Ethical Constitution for Safe Generation
+### v2.1: Ethical Constitution for Safe Generation
 
 ```python
 import torch
