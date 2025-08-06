@@ -8,8 +8,9 @@ version = "2.1.0"
 description = "A PyTorch library for building generative models with causal constraints"
 readme = "README.md"
 requires-python = ">=3.7"
+license = {file = "LICENSE"}
 authors = [
-    {name = "Elija Nzeli", email = "elijahnzeli894@example.com"}
+    {name = "Elija Nzeli", email = "elijahnzeli894@gmail.com"}
 ]
 classifiers = [
     "Programming Language :: Python :: 3",
@@ -32,7 +33,6 @@ dependencies = [
     "networkx>=2.5",
     "tqdm>=4.61.0",
 ]
-license = {text = "MIT"}
 
 [project.optional-dependencies]
 text = ["transformers>=4.5.0", "tokenizers>=0.10.2"]
