@@ -32,7 +32,7 @@ dependencies = [
     "networkx>=2.5",
     "tqdm>=4.61.0",
 ]
-license = "MIT"
+license = {text = "MIT"}
 
 [project.optional-dependencies]
 text = ["transformers>=4.5.0", "tokenizers>=0.10.2"]
