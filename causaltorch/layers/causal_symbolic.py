@@ -42,3 +42,12 @@ class CausalSymbolicLayer(nn.Module):
             z[:, wet_ground_idx] = ground_wetness
         
         return z
+
+# I found the issue! The problem is in the CausalSymbolicLayer in the causaltorch library. 
+# The error "index out of range in self" occurs because the layer is trying to access specific tensor 
+# dimensions with hardcoded indices (z[:, rain_idx] and z[:, wet_ground_idx]) but the input tensor doesn't have enough dimensions.
+# Proper Fix: Implement a safer causal layer that:
+
+# 1. Validates tensor dimensions before indexing
+# 2. Has proper error handling
+# 3. Maintains causal reasoning capabilities
